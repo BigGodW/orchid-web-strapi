@@ -10,19 +10,27 @@
                 <div class="badge badge-dash badge-accent badge-md">新闻</div>
             </div>
         </div>
-        <div v-if="searchList.length>0">
-            <div v-for="item in searchList">
-                <h2>{{ item.name }}</h2>
+        <!-- 搜索结果显示 -->
+        <div v-if="pending" class="text-center p-4">搜索中...</div>
+        <div v-else-if="error" class="text-center p-4 text-red-500">搜索出错: {{ error.message }}</div>
+        <div v-else-if="searchList.length > 0" class="p-3">
+            <h2 class="mb-2">搜索结果：</h2>
+            <div v-for="item in searchList" :key="item.name" class="border-b py-2">
+                <h3>{{ item.name }}</h3>
             </div>
         </div>
-        <van-empty v-else description="查询结果" />
+        <van-empty v-else-if="hasSearched && searchList.length === 0" description="暂无搜索结果" />
+        <div v-else class="p-3 text-gray-400">输入关键词开始搜索</div>
     </div>
 </template>
+
 <script setup>
 const router = useRouter()
 const onClickLeft = () => {
     router.back()
 }
+
+// GraphQL query - 注意变量名 $filters
 const query = gql`
 query Orchids($filters: OrchidFiltersInput) {
   orchids(filters: $filters) {
@@ -30,20 +38,66 @@ query Orchids($filters: OrchidFiltersInput) {
   }
 }
 `
+
 const searchKey = ref('')
 const searchList = ref([])
+const hasSearched = ref(false) // 标记是否已执行过搜索
+
+// 使用 useAsyncQuery - 修正参数传递
+const { execute, data, pending, error } = useAsyncQuery(query, 
+  { filters: {} }, // 初始参数
+  { lazy: true }
+)
+
 const onSearch = async () => {
-    const { data } = await useAsyncQuery(query, {
-        "filters": {
-            "name": {
-                "contains": searchKey.value
+    if (!searchKey.value.trim()) {
+        searchList.value = []
+        hasSearched.value = false
+        return
+    }
+    
+    try {
+        console.log('搜索关键词:', searchKey.value)
+        
+        // 方法1：直接传递变量（推荐）
+        await execute(query, {
+            filters: {
+                name: {
+                    contains: searchKey.value
+                }
             }
+        })
+        
+        // 或者方法2：如果上面不行，尝试这种方式
+        // await execute({
+        //     filters: {
+        //         name: {
+        //             contains: searchKey.value
+        //         }
+        //     }
+        // })
+        
+        console.log('原始响应:', data.value)
+        
+        // 修正数据赋值路径
+        if (data.value?.orchids) {
+            searchList.value = data.value.orchids
+            console.log('搜索结果:', searchList.value)
+        } else if (data.value?.data?.orchids) {
+            // 有些 GraphQL 客户端包装在 data 字段里
+            searchList.value = data.value.data.orchids
+            console.log('搜索结果(data):', searchList.value)
+        } else {
+            searchList.value = []
+            console.log('未找到 orchids 数据，完整响应:', data.value)
         }
-    })
-    searchList.value = data.value.orchids
-
-    console.log(searchList.value)
+        
+        hasSearched.value = true
+        
+    } catch (err) {
+        console.error('搜索失败:', err)
+        searchList.value = []
+        hasSearched.value = true
+    }
 }
-
-
 </script>
