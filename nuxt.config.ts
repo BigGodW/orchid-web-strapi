@@ -6,11 +6,11 @@ export default defineNuxtConfig({
   apollo: {
     clients: {
       default: {
-        httpEndpoint: 'http://47.109.179.80:1338/graphql',
+        httpEndpoint: 'https://strapi-api.orchids.com.cn',
       },
     },
   },
   strapi: {
-    url: 'http://47.109.179.80:1338',
+    url: 'https://strapi-api.orchids.com.cn',
   },
 })
