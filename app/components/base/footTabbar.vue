@@ -1,7 +1,7 @@
 <template>
     <div class="fixed bottom-0 left-0 w-full z-40">
         <van-tabbar v-model="active" @change="onChange">
-            <van-tabbar-item icon="home-o">标签</van-tabbar-item>
+            <van-tabbar-item icon="home-o">首页</van-tabbar-item>
             <van-tabbar-item icon="flower-o">兰花</van-tabbar-item>
             <van-tabbar-item icon="newspaper-o">新闻</van-tabbar-item>
             <van-tabbar-item icon="friends-o">我们</van-tabbar-item>

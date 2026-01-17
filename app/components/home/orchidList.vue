@@ -7,21 +7,7 @@
                 </van-tab>
             </van-tabs>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 mx-1">
-                <div v-for="item in orchids" :key="item.id" class="m-2 relative">
-                    <nuxt-link :to="'/orchid/'+item.documentId">
-                        <div>
-                        <img class="w-full aspect-square rounded-lg  object-cover overflow-hidden" :src="'https://strapi-api.orchids.com.cn'+item.images[0].url" alt="">
-                    </div>
-                    <h2 class="line-clamp-1  my-1">
-                        <span class=" bg-blue-400 ml-1 p-1 rounded-md text-white text-[12px]  font-bold">{{ item.orchid_category?.name }}</span>
-                        <span class="ml-1 text-[14px] p-1">{{ item.name }}</span>
-                    </h2>
-                    <div class=" absolute top-1 right-1" v-if="item.orchid_types">
-                        <van-tag class="ml-1" type="warning" v-for="type in item.orchid_types" :key="type.id">{{ type.name }}</van-tag>
-                    </div>
-                    <p class="text-sm line-clamp-2">{{ item.description }}</p>
-                    </nuxt-link>
-                </div>
+                <orchid-item v-for="orchid in orchids" :key="orchid.id" :orchid="orchid" class="m-2 relative"></orchid-item>
             </div>
         </div>
     </div>
