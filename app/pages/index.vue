@@ -1,31 +1,17 @@
 <template>
-    <div>
-        <HomeTopSearch></HomeTopSearch>
-        <HomeMyswipe></HomeMyswipe>
-      <div>
-        <h1 class=" bg-red-100">测试接口</h1>
-        <div>
-          <div aria-label="status" class="status status-primary"></div>
-          <div aria-label="status" class="status status-secondary"></div>
-          <div aria-label="status" class="status status-accent"></div>
-          <div aria-label="status" class="status status-neutral"></div>
-        </div>
+  <div>
+    <HomeTopSearch></HomeTopSearch>
+    <HomeMyswipe></HomeMyswipe>
+    <HomeLiveShow></HomeLiveShow>
+    <!-- <div>
+      <div class="text-center p-2 text-sm flex justify-center flex-col items-center">
+        <BaseIconfont name="yu" class="text-2xl"></BaseIconfont>
+        <p>引领兰花市场、弘扬国兰文化、推动兰花产业的蓬勃发展</p>
       </div>
-    </div>
-  </template>
-  <script setup>
-  const query = gql`
-    query{
-    orchids {
-      name
-      documentId
-    }
-    }
-  `
-  //const {data} = await useAsyncQuery(query)
-  
-//   const {find} = useStrapi()
-//   const response = await find('orchids',{fields:['id','name'],pagination:{
-//     pageSize:10
-//   }})
-  </script>
+    </div> -->
+    <HomeOrchidList></HomeOrchidList>
+  </div>
+</template>
+<script setup>
+
+</script>
