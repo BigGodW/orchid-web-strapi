@@ -1,6 +1,8 @@
 <template>
     <div>
-        <van-nav-bar :title="orchid?.name" left-arrow @click-left="onClickLeft" />
+        <div class="sticky top-0 z-30">
+            <van-nav-bar :title="orchid?.name" left-arrow @click-left="onClickLeft"  />
+        </div>
         <div>
             <van-swipe class="my-swipe" v-if="orchid?.images" :autoplay="3000" indicator-color="white">
                 <van-swipe-item v-for="item in orchid.images" class="">

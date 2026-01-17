@@ -1,5 +1,5 @@
 <template>
     <div>
-        <h1>search-list</h1>
+        <h1>兰花页面</h1>
     </div>
 </template>

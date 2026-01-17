@@ -1,8 +1,8 @@
 <template>
-  <div class=" ">
-    <div class=" ">
-      <NuxtPage class=" container mx-auto"></NuxtPage>
-    </div>
+  <div>   
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 <script setup>
