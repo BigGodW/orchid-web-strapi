@@ -41,7 +41,7 @@
                         <p>快手</p>
                         <BaseIconfont name="kuaishou" class="icon text-[50px]" />
                     </NuxtLink>
-                    <NuxtLink to="https://mp.weixin.qq.com/s/N5KxyF9SJgurfLZ1xi1v1Q">
+                    <NuxtLink to="https://mp.weixin.qq.com/s/HS9rmS7qtEXeXENMFSNKdQ">
                         <p>公众号</p>
                         <BaseIconfont name="weixin" class="icon text-[50px]" />
                     </NuxtLink>

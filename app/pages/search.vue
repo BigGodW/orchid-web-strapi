@@ -14,7 +14,9 @@
         <div v-else-if="searchList.length > 0" class="p-3">
             <h2 class="mb-2">搜索结果：</h2>
             <div v-for="item in searchList" :key="item.name" class="border-b py-2">
-                <h3>{{ item.name }}</h3>
+                <nuxt-link :to="`/orchids/${item.documentId}`">
+                    <h3>{{ item.name }}</h3>
+                </nuxt-link>
             </div>
         </div>
         <van-empty v-else-if="hasSearched && searchList.length === 0" description="暂无搜索结果" />
